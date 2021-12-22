@@ -22,8 +22,8 @@ public class OurGlassApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		logger.info("container ready");
 		RestTemplate restTemplate = new RestTemplate();
-		String urlWeatherServer = "https://timezone.abstractapi.com/v1/current_time/?api_key=73df5937b4c24123bde19880d192d7a9&location=Oxford,%20United%20Kingdom";
-		TimeMap data = restTemplate.getForObject(urlWeatherServer, TimeMap.class);
+		String urlTimeZoner = "https://timezone.abstractapi.com/v1/current_time/?api_key=73df5937b4c24123bde19880d192d7a9&location=Oxford,%20United%20Kingdom";
+		TimeMap data = restTemplate.getForObject(urlTimeZoner, TimeMap.class);
 		logger.info(data.toString());
 
 
