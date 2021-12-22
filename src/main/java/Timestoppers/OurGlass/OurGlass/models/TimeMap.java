@@ -1,4 +1,4 @@
-package Timestoppers.OurGlass.OurGlass;
+package Timestoppers.OurGlass.OurGlass.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
