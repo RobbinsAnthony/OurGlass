@@ -1,5 +1,6 @@
 package Timestoppers.OurGlass.OurGlass.taskers.controllers;
 
+import Timestoppers.OurGlass.OurGlass.taskers.Exceptions.TaskerNotFoundException;
 import Timestoppers.OurGlass.OurGlass.taskers.models.Tasker;
 import Timestoppers.OurGlass.OurGlass.taskers.services.TaskerService;
 import org.slf4j.Logger;
@@ -16,28 +17,23 @@ import java.util.List;
 public class TaskerController {
     private final Logger logger = LoggerFactory.getLogger(TaskerController.class);
     private TaskerService taskerService;
-    private Tasker taskers;
+    private Tasker tasker;
 
 
         @Autowired
         public TaskerController(TaskerService taskerService) {this.taskerService = taskerService;}
 
         @PostMapping("")
-        public ResponseEntity<Tasker> createTaskerRequest(RequestBody Tasker tasker) {
+        public ResponseEntity<Tasker> createTaskerRequest(@RequestBody Tasker tasker) {
             Tasker savedTasker = taskerService.create(tasker);
             ResponseEntity response = new ResponseEntity(savedTasker, HttpStatus.CREATED);
             return response;
     }
-        @GetMapping("")
-        public ResponseEntity<List<Tasker>> getAllTaskers(){
-            List<Tasker> tasker = taskerService.getAllTaskers();
-            ResponseEntity<List<Tasker>> response = new ResponseEntity<>(taskers, HttpStatus.OK);
-            return response;
-    }
+
         @GetMapping("/{id}") //should this be id or something else
-        public ResponseEntity<?> getTaskerById(@PathVariable Integer id){
+        public ResponseEntity<?> getTaskerById(@PathVariable Long id){
             try {
-                Tasker tasker = taskerService.getTaskerByID(id); //should ID be cap
+                Tasker tasker = taskerService.getTaskerById(id); //should ID be cap
                 ResponseEntity<?> response = new ResponseEntity<>(tasker, HttpStatus.OK);
                 return response;
             }catch (TaskerNotFoundException e) {
@@ -47,7 +43,7 @@ public class TaskerController {
                 }
             }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProfile(@PathVariable Integer id, @RequestBody Tasker tasker){
+    public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody Tasker tasker){
         try{
             Tasker updatedTasker = taskerService.updateTasker(id, tasker);
             ResponseEntity response = new ResponseEntity(updatedTasker, HttpStatus.OK);
@@ -59,7 +55,7 @@ public class TaskerController {
             }
         }
         @DeleteMapping("/{id}")
-        public ResponseEntity<?> deleteProile(@PathVariable Integer id){
+        public ResponseEntity<?> deleteProfile(@PathVariable Long id){
             try {
                 taskerService.deleteTasker(id);
                 return ResponseEntity

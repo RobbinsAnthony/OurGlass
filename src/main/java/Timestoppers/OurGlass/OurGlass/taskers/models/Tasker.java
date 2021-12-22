@@ -4,24 +4,23 @@ import javax.persistence.*;
 
 @Entity
 public class Tasker {
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-private String taskName;
-//private dailyGoal DailyGoal;  confused by this
-private boolean onAndOffTask;
-private String deadline;
-private String projectName;
-//@OneToMany(cascade = CascadeType.ALL)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String taskName;
+    private boolean onAndOffTask;
+    private String deadline;
+    private String projectName;
+    private Long id;
+    //@OneToMany(cascade = CascadeType.ALL)
 
-public Tasker() {
+    public Tasker() {
 
-}
-public Tasker(String taskName, /* dailyGoal*/, boolean onAndOffTask,String deadline, String projectName){
-  this.taskName = taskName;
-  //this.dailyGoal = dailyGoal;
-  this.onAndOffTask = onAndOffTask;
-  this.deadline = deadline;
-  this.projectName = projectName;
+    }
+    public Tasker(String taskName, boolean onAndOffTask,String deadline, String projectName){
+      this.taskName = taskName;
+      this.onAndOffTask = onAndOffTask;
+      this.deadline = deadline;
+      this.projectName = projectName;
 }
 
     public String getTaskName() {
