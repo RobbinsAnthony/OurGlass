@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/alerts")
 public class AlertNotificationController {
 
+
     private final Logger logger = LoggerFactory.getLogger(AlertNotificationController.class);
     private AlertNotificationService alertNotificationService;
 

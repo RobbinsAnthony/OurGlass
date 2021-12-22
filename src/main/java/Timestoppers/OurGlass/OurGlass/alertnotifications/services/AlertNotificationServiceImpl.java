@@ -31,7 +31,7 @@ public class AlertNotificationImpl implements AlertNotificationService {
         Optional<AlertNotification> alertOptional = alertNotificationRepo.findById(id);
         if (alertNotification.isEmpty()) {
             logger.error("Alert notification employee number {} does not exist");
-            throw new AlertNotificationNotFoundExpectation("Alert notificatio not found");
+            throw new AlertNotificationNotFoundExpectation("Alert notification not found");
         }
         return AlertNotificationOptional.get();
     }
