@@ -5,13 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
-public class AlertNotificationModel {
+public class AlertNotification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer employeeNumber;
+    private Long alertNotificationId;
     private String jobTitle;
     private Boolean onTask;
     private Boolean offTask;
@@ -21,15 +22,17 @@ public class AlertNotificationModel {
     private Boolean clockIn;
     private Boolean clockOut;
 
-    public AlertNotificationModel() {
+
+
+    public AlertNotification() {
     }
 
-    public Integer getEmployeeNumber() {
-        return employeeNumber;
+    public Long getAlertNotificationId() {
+        return alertNotificationId;
     }
 
-    public void setEmployeeNumber(Integer employeeNumber) {
-        this.employeeNumber = employeeNumber;
+    public void setAlertNotificationId(Long alertNotificationId) {
+        this.alertNotificationId = alertNotificationId;
     }
 
     public String getJobTitle() {
@@ -96,10 +99,24 @@ public class AlertNotificationModel {
         this.clockOut = clockOut;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AlertNotification that = (AlertNotification) o;
+        return Objects.equals(alertNotificationId, that.alertNotificationId) && Objects.equals(jobTitle, that.jobTitle) && Objects.equals(onTask, that.onTask) && Objects.equals(offTask, that.offTask) && Objects.equals(present, that.present) && Objects.equals(absent, that.absent) && Objects.equals(timeOffRequests, that.timeOffRequests) && Objects.equals(clockIn, that.clockIn) && Objects.equals(clockOut, that.clockOut);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(alertNotificationId, jobTitle, onTask, offTask, present, absent, timeOffRequests, clockIn, clockOut);
+    }
+
     @Override
     public String toString() {
-        return "AlertNotificationModel{" +
-                "employeeNumber=" + employeeNumber +
+        return "AlertNotification{" +
+                "alertNotificationId=" + alertNotificationId +
                 ", jobTitle='" + jobTitle + '\'' +
                 ", onTask=" + onTask +
                 ", offTask=" + offTask +

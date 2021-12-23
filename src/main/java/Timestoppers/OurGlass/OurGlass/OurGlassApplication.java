@@ -1,6 +1,6 @@
 package Timestoppers.OurGlass.OurGlass;
 
-import Timestoppers.OurGlass.OurGlass.models.TimeMap;
+import Timestoppers.OurGlass.OurGlass.timemap.models.TimeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

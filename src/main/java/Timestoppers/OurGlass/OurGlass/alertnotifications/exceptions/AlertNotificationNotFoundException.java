@@ -5,4 +5,4 @@ public class AlertNotificationNotFoundException extends Exception {
         super(message);
     }
 }
-}
+

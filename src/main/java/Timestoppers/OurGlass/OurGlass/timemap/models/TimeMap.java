@@ -1,6 +1,8 @@
-package Timestoppers.OurGlass.OurGlass.models;
+package Timestoppers.OurGlass.OurGlass.timemap.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Objects;
 
 public class TimeMap {
 
@@ -115,6 +117,20 @@ public class TimeMap {
 
     public void setLongitude(Double longitude) {
         Longitude = longitude;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TimeMap timeMap = (TimeMap) o;
+        return Objects.equals(datetime, timeMap.datetime) && Objects.equals(timeZoneName, timeMap.timeZoneName) && Objects.equals(timeZoneLocation, timeMap.timeZoneLocation) && Objects.equals(getTimeZoneAbbreviation, timeMap.getTimeZoneAbbreviation) && Objects.equals(gmtOffset, timeMap.gmtOffset) && Objects.equals(isDst, timeMap.isDst) && Objects.equals(requestedLocation, timeMap.requestedLocation) && Objects.equals(latitude, timeMap.latitude) && Objects.equals(Longitude, timeMap.Longitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(datetime, timeZoneName, timeZoneLocation, getTimeZoneAbbreviation, gmtOffset, isDst, requestedLocation, latitude, Longitude);
     }
 
     @Override

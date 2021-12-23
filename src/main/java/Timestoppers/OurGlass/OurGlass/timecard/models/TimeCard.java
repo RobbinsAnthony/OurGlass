@@ -1,12 +1,13 @@
-package Timestoppers.OurGlass.OurGlass.TimeCard.Models;
+package Timestoppers.OurGlass.OurGlass.timecard.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
-public class TimeCardModel {
+public class TimeCard {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -19,9 +20,21 @@ public class TimeCardModel {
     private String requestType;
     private String timeOffRequest;
     private String timeBank;
+    private Long id;
 
-    public TimeCardModel(){
 
+
+
+    public TimeCard(){
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Boolean getClockIn() {
@@ -97,8 +110,21 @@ public class TimeCardModel {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TimeCard timeCard = (TimeCard) o;
+        return Objects.equals(clockIn, timeCard.clockIn) && Objects.equals(clockOut, timeCard.clockOut) && Objects.equals(onBreak, timeCard.onBreak) && Objects.equals(notOnBreak, timeCard.notOnBreak) && Objects.equals(date, timeCard.date) && Objects.equals(time, timeCard.time) && Objects.equals(requestType, timeCard.requestType) && Objects.equals(timeOffRequest, timeCard.timeOffRequest) && Objects.equals(timeBank, timeCard.timeBank) && Objects.equals(id, timeCard.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clockIn, clockOut, onBreak, notOnBreak, date, time, requestType, timeOffRequest, timeBank, id);
+    }
+
+    @Override
     public String toString() {
-        return "TimeCardModel{" +
+        return "TimeCard{" +
                 "clockIn=" + clockIn +
                 ", clockOut=" + clockOut +
                 ", onBreak=" + onBreak +
@@ -108,6 +134,8 @@ public class TimeCardModel {
                 ", requestType='" + requestType + '\'' +
                 ", timeOffRequest='" + timeOffRequest + '\'' +
                 ", timeBank='" + timeBank + '\'' +
+                ", id=" + id +
                 '}';
     }
 }
+

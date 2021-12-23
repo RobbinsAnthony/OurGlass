@@ -1,7 +1,8 @@
-package Timestoppers.OurGlass.OurGlass.TimeCard.Controllers;
+package Timestoppers.OurGlass.OurGlass.timecard.controllers;
 
-import Timestoppers.OurGlass.OurGlass.TimeCard.Service.TimeCardImpl;
-import Timestoppers.OurGlass.OurGlass.TimeCard.Service.TimeCardService;
+import Timestoppers.OurGlass.OurGlass.timecard.exceptions.TimeCardNotFoundException;
+import Timestoppers.OurGlass.OurGlass.timecard.models.TimeCard;
+import Timestoppers.OurGlass.OurGlass.timecard.services.TimeCardService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,33 +13,34 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("/TimeCard")
+@RequestMapping("/timeCard")
 public class TimeCardController {
     private final Logger logger = (Logger) LoggerFactory.getLogger(TimeCardController.class);
-    private TimeCardController timeCardController;
+    private TimeCardService timeCardService;
+
 
     @Autowired
-    public TimeCardController(TimeCardService timeCardService){this.timeCardController = (TimeCardController) timeCardService;}
+    public TimeCardController(TimeCardService timeCardService){this.timeCardService = timeCardService;}
 
     @PostMapping("")
     public ResponseEntity<TimeCard> createTimeCardRequest(@RequestBody TimeCard timeCard){
-        TimeCard savedTimeCard = TimeCardService.create(timeCard);
+        TimeCard savedTimeCard = timeCardService.create(timeCard);
         ResponseEntity response = new ResponseEntity(savedTimeCard, HttpStatus.CREATED);
         return response;
     }
 
     @GetMapping("")
     public ResponseEntity<List<TimeCard>> getAllTimeCards(){
-        List<TimeCard> timeCards = TimeCardService.getAllTimeCards();
+        List<TimeCard> timeCards = timeCardService.getAllTimeCards();
         ResponseEntity<List<TimeCard>> response = new ResponseEntity<>(timeCards, HttpStatus.OK);
         return response;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getProfileById(PathVariable Integer id){
+    public ResponseEntity<?> getTimeCardById(@PathVariable Long id){
         try {
-            TimeCard timeCard = TimeCardService.getTimeCardById(id);
-            ResponseEntity<?> response = new ResponseEntity<>(TimeCard, HttpStatus.OK);
+            TimeCard timeCard = timeCardService.getTimeCardById(id);
+            ResponseEntity<?> response = new ResponseEntity<>(timeCard, HttpStatus.OK);
             return response;
         }catch (TimeCardNotFoundException e){
             return ResponseEntity
@@ -48,9 +50,9 @@ public class TimeCardController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> updateProfile(@PathVariable Integer id, @RequestBody TimeCard timeCard ){
+    public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody TimeCard timeCard ){
         try{
-            TimeCard updatedTimeCard = TimeCardService.updateTimeCard(id, timeCard);
+            TimeCard updatedTimeCard = timeCardService.updateTimeCard(id, timeCard);
             ResponseEntity response = new ResponseEntity(updatedTimeCard, HttpStatus.OK);
             return response;
         } catch (TimeCardNotFoundException e){
@@ -61,9 +63,9 @@ public class TimeCardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProfile(@PathVariable Integer id){
+    public ResponseEntity<?> deleteProfile(@PathVariable Long id){
         try{
-            TimeCardService.deleteTimeCard(id);
+            timeCardService.deleteTimeCard(id);
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .build();
